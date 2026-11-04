@@ -32,6 +32,7 @@ export CSC_URL=...  # connectivity service host:port
 export CSC_SESSION=...  # connectivity service session, e.g. JamesTest
 ```
 
-Now start the drunc_ui server with `drunc-ui-manage runserver` or `drunc-ui-run-gunicorn`.
+Now start a `drunc_ui` development server with `drunc-ui-manage runserver`.
+Alternatively, you can start a production Gunicorn server with `drunc-ui-run-gunicorn`.
 
 Point your browser to the server and login. For `runserver`, it's `http://127.0.0.1:8000/`.
