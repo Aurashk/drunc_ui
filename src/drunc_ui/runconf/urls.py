@@ -7,5 +7,5 @@ from drunc_ui.runconf.views import pages
 app_name = "runconf"
 
 urlpatterns = [
-    path("config/", pages.config_view, name="config_view"),
+    path("", pages.config_view, name="config_view"),
 ]
