@@ -5,7 +5,7 @@ from http import HTTPStatus
 import pytest
 from django.test import Client
 from django.urls import reverse
-from pytest_django.asserts import assertContains, assertTemplateUsed
+from pytest_django.asserts import assertContains, assertRedirects, assertTemplateUsed
 
 from ...utils import LoginRequiredTest
 
@@ -21,9 +21,9 @@ class TestConfigView(LoginRequiredTest):
         assert response.status_code == HTTPStatus.OK
 
     def test_config_view_unauthenticated_user(self, client: Client) -> None:
-        """Test that an unauthenticated user cannot access config view."""
-        response = auth_client.get(self.endpoint)
-        assert response.status_code == HTTPStatus.FORBIDDEN
+        """Test that an unauthenticated user is redirected to the login page."""
+        response = client.get(self.endpoint)
+        assertRedirects(response, reverse("main:login") + f"?next={self.endpoint}")
 
     def test_config_view_uses_correct_template(self, auth_client: Client) -> None:
         """Test that config view uses the correct template."""
