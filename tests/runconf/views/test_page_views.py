@@ -20,7 +20,11 @@ class TestConfigView(LoginRequiredTest):
         response = auth_client.get(self.endpoint)
         assert response.status_code == HTTPStatus.OK
 
-    def test_config_view_uses_correct_template(self, auth_client: Client) -> None:
+    def test_config_view_unauthenticated_user(self, client: Client) -> None:
+        """Test that an unauthenticated user cannot access config view."""
+        response = auth_client.get(self.endpoint)
+        assert response.status_code == HTTPStatus.FORBIDDEN
+
         """Test that config view uses the correct template."""
         response = auth_client.get(self.endpoint)
         assertTemplateUsed(response, "runconf/config_view.html")
